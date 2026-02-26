@@ -1,0 +1,312 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Veris API",
+    "version": "1.0.0",
+    "description": "API del Backend NodeJS para Veris (Prueba Técnica)"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Servidor Local (Desarrollo)"
+    }
+  ],
+  "paths": {
+    "/autenticacion/login": {
+      "post": {
+        "tags": [
+          "Autenticación"
+        ],
+        "description": "Endpoint para obtener el token JWT usando credenciales Basic Auth.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/pacientes": {
+      "post": {
+        "tags": [
+          "Pacientes"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "numero_identificacion": {
+                    "type": "string",
+                    "example": "1765432109"
+                  },
+                  "codigo_tipo_identificacion": {
+                    "type": "string",
+                    "example": "CED"
+                  },
+                  "primer_nombre": {
+                    "type": "string",
+                    "example": "Sofia"
+                  },
+                  "segundo_nombre": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "primer_apellido": {
+                    "type": "string",
+                    "example": "Torres"
+                  },
+                  "segundo_apellido": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "sofia.torres@test.com"
+                  }
+                },
+                "required": [
+                  "numero_identificacion",
+                  "codigo_tipo_identificacion",
+                  "primer_nombre",
+                  "primer_apellido"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Pacientes"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página (default: 1)",
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Cantidad de registros por página (default: 10)",
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "numero_identificacion",
+            "in": "query",
+            "description": "Filtro por número de identificación (opcional)",
+            "example": "0912345678",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nombre_completo",
+            "in": "query",
+            "description": "Filtro por nombre completo - búsqueda parcial (opcional)",
+            "example": "Pedro",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Filtro por email (opcional)",
+            "example": "pedro@test.com",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "estado",
+            "in": "query",
+            "description": "Filtro por estado: A (Activo) o I (Inactivo). Default: A",
+            "enum": [
+              "A",
+              "I"
+            ],
+            "example": "A",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/pacientes/{id}": {
+      "get": {
+        "tags": [
+          "Pacientes"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Pacientes"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "primer_nombre": {
+                    "type": "string",
+                    "example": "Juan"
+                  },
+                  "segundo_nombre": {
+                    "type": "string",
+                    "example": "Carlos"
+                  },
+                  "primer_apellido": {
+                    "type": "string",
+                    "example": "Pérez"
+                  },
+                  "segundo_apellido": {
+                    "type": "string",
+                    "example": "García"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "nuevo.email@test.com"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pacientes"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/tablas": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
