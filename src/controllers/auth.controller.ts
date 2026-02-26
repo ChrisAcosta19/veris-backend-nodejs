@@ -15,13 +15,13 @@ export class AuthController {
         const [login, password] = Buffer.from(b64auth, "base64").toString().split(":");
 
         // Hardcoding credentials as it is a technical test requirement placeholder
-        if (login === "admin" && password === "veris123") {
+        if (login === "VERIS" && password === "PRUEBAS123") {
             const secret = process.env.JWT_SECRET || "default_secret";
             // Emit JWT token
             const token = jwt.sign({ username: login, role: "admin" }, secret, {
                 expiresIn: "1h",
             });
-            return res.status(200).json({ 
+            return res.status(200).json({
                 code: 200,
                 success: true,
                 message: "Authentication successful",
@@ -29,7 +29,7 @@ export class AuthController {
             });
         }
 
-        return res.status(401).json({ 
+        return res.status(401).json({
             code: 401,
             success: false,
             message: "Authentication failed. Invalid username or password.",
